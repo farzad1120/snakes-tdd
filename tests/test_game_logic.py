@@ -1,6 +1,7 @@
 import pytest
 from src.game_logic import SnakeGame
 
+
 class TestSnakeGame:
     @pytest.fixture
     def game(self):
@@ -16,12 +17,12 @@ class TestSnakeGame:
     def test_snake_movement(self, game):
         # Initial position
         initial_pos = game.snake_pos[0]
-        
+
         # Move right
         game.change_direction((20, 0))
         game.move_snake()
         assert game.snake_pos[0] == (initial_pos[0] + 20, initial_pos[1])
-        
+
         # Move down
         game.change_direction((0, 20))
         game.move_snake()
@@ -46,11 +47,11 @@ class TestSnakeGame:
         initial_length = len(game.snake_pos)
         food_pos = (game.snake_pos[0][0] + 20, game.snake_pos[0][1])
         game.food_pos = food_pos
-        
+
         # Move snake to food
         game.change_direction((20, 0))
         game.move_snake()
-        
+
         assert len(game.snake_pos) == initial_length + 1
         assert game.score == 1
         assert game.food_pos != food_pos  # Food should have moved
@@ -59,7 +60,7 @@ class TestSnakeGame:
         # Move right
         game.change_direction((20, 0))
         game.move_snake()
-        
+
         # Try to move left (should be ignored)
         game.change_direction((-20, 0))
         original_direction = game.direction
@@ -72,10 +73,10 @@ class TestSnakeGame:
         game.game_over = True
         game.snake_pos = [(100, 100), (120, 100)]
         game.direction = (20, 0)
-        
+
         # Reset game
         game.reset_game()
-        
+
         # Verify reset state
         assert not game.game_over
         assert game.score == 0

@@ -18,6 +18,7 @@ RED = (213, 50, 80)
 GREEN = (0, 255, 0)
 BLUE = (50, 153, 213)
 
+
 class SnakeGameUI:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -37,11 +38,16 @@ class SnakeGameUI:
 
     def draw_snake(self):
         for pos in self.game.snake_pos:
-            pygame.draw.rect(self.screen, BLACK, [pos[0], pos[1], BLOCK_SIZE, BLOCK_SIZE])
+            pygame.draw.rect(
+                self.screen, BLACK, [pos[0], pos[1], BLOCK_SIZE, BLOCK_SIZE]
+            )
 
     def draw_food(self):
-        pygame.draw.rect(self.screen, GREEN, 
-                        [self.game.food_pos[0], self.game.food_pos[1], BLOCK_SIZE, BLOCK_SIZE])
+        pygame.draw.rect(
+            self.screen,
+            GREEN,
+            [self.game.food_pos[0], self.game.food_pos[1], BLOCK_SIZE, BLOCK_SIZE],
+        )
 
     def handle_input(self):
         for event in pygame.event.get():
@@ -79,20 +85,22 @@ class SnakeGameUI:
             else:
                 running = self.handle_input()
                 self.game.move_snake()
-                
+
                 self.screen.fill(WHITE)
                 self.draw_food()
                 self.draw_snake()
                 self.display_score()
-                
+
                 pygame.display.update()
                 self.clock.tick(SNAKE_SPEED)
+
 
 def main():
     game = SnakeGameUI()
     game.game_loop()
     pygame.quit()
     sys.exit()
+
 
 if __name__ == "__main__":
     main()
